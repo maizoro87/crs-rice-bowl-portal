@@ -1,7 +1,7 @@
 # CRS Rice Bowl Portal - Flask Application
 # Single container for Railway deployment
 
-FROM python:3.11-slim as builder
+FROM python:3.11-slim AS builder
 
 WORKDIR /app
 
@@ -30,10 +30,9 @@ RUN mkdir -p /app/data
 ENV FLASK_APP=run.py
 ENV FLASK_ENV=production
 ENV PYTHONUNBUFFERED=1
-
-# Railway sets PORT env variable
 ENV PORT=5000
+
 EXPOSE 5000
 
-# Run with gunicorn (use PORT from environment)
-CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 4 run:app
+# Run with gunicorn - use shell form for variable expansion
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 2 --threads 4 --timeout 120 run:app"]
