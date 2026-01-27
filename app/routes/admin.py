@@ -339,7 +339,7 @@ def add_class():
 @login_required
 def update_class(class_id: int):
     """
-    Update a class's name and/or amount.
+    Update a class's name and/or amount (form submission).
     """
     school_class = SchoolClass.query.get(class_id)
 
@@ -376,6 +376,41 @@ def update_class(class_id: int):
         flash(f'Error updating class: {str(e)}', 'error')
 
     return redirect(url_for('admin_bp.classes'))
+
+
+@admin_bp.route('/classes/<int:class_id>/edit', methods=['POST'])
+@login_required
+def edit_class(class_id: int):
+    """
+    Update a class's name via AJAX (JSON response).
+    """
+    from flask import jsonify
+
+    school_class = SchoolClass.query.get(class_id)
+
+    if not school_class:
+        return jsonify({'success': False, 'error': 'Class not found'}), 404
+
+    try:
+        data = request.get_json()
+        new_name = data.get('name', '').strip() if data else ''
+
+        if not new_name:
+            return jsonify({'success': False, 'error': 'Class name is required'}), 400
+
+        if new_name != school_class.name:
+            # Check for duplicate name
+            existing = SchoolClass.query.filter_by(name=new_name).first()
+            if existing and existing.id != class_id:
+                return jsonify({'success': False, 'error': f'A class named "{new_name}" already exists'}), 400
+            school_class.name = new_name
+
+        db.session.commit()
+        return jsonify({'success': True, 'name': school_class.name})
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 
 @admin_bp.route('/classes/<int:class_id>/delete', methods=['POST'])
