@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Santa Margarita Catholic High School Lenten Almsgiving and CRS Rice Bowl Portal">
+    <title>Lenten Alms & CRS Rice Bowl Portal | SMCHS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Lenten Alms & CRS Rice Bowl Portal</h1>
+                    <p class="subtitle">Join our school community in practicing almsgiving this Lent through Catholic Relief Services Rice Bowl</p>
+                </div>
+                <div class="header-cta">
+                    <a href="#" id="crs-donate-btn" class="btn btn-primary" aria-label="Donate to CRS Rice Bowl online">
+                        Give Alms Online (CRS Rice Bowl)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#quiz">This Week's Quiz</a></li>
+                <li><a href="#rice-bowl">Rice Bowl Info</a></li>
+                <li><a href="#leaderboard">Class Leaderboard</a></li>
+                <li><a href="#totals">Totals & Updates</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Section A: Online Almsgiving -->
+        <section id="online-almsgiving" class="section section-almsgiving">
+            <div class="container">
+                <h2>Give Alms Online</h2>
+                <p class="section-intro">Support Catholic Relief Services programs around the world at any time during Lent. Your donations help provide food, shelter, education, and hope to communities in need.</p>
+
+                <div class="almsgiving-content">
+                    <div class="crs-programs">
+                        <h3>Where Your Alms Go</h3>
+                        <ul>
+                            <li>Emergency food assistance and nutrition programs</li>
+                            <li>Clean water and sanitation projects</li>
+                            <li>Education and livelihood training</li>
+                            <li>Health services and medical care</li>
+                            <li>Peace and reconciliation initiatives</li>
+                        </ul>
+                    </div>
+
+                    <div class="donation-widget">
+                        <a href="#" id="crs-donate-btn-section" class="btn btn-large btn-primary" aria-label="Donate to CRS Rice Bowl online">
+                            Donate to CRS Rice Bowl
+                        </a>
+                        <div class="online-total-display">
+                            <p class="total-label">Online Alms Total</p>
+                            <p id="online-total" class="total-amount" data-amount="0">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlighted-days">
+                    <h3>Highlighted Giving Days</h3>
+                    <p class="highlighted-intro">We especially encourage almsgiving on these key dates during Lent:</p>
+                    <ul class="giving-days-list">
+                        <li data-date="2026-02-23">
+                            <span class="day-date">February 23, 2026</span>
+                            <span class="day-description">First Sunday of Lent</span>
+                        </li>
+                        <li data-date="2026-03-09">
+                            <span class="day-date">March 9, 2026</span>
+                            <span class="day-description">Third Sunday of Lent</span>
+                        </li>
+                        <li data-date="2026-03-25">
+                            <span class="day-date">March 25, 2026</span>
+                            <span class="day-description">Rice Bowl Collection Due</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section B: This Week's Quiz -->
+        <section id="quiz" class="section section-quiz">
+            <div class="container">
+                <h2 id="quiz-title" data-country="">This Week's Quiz</h2>
+
+                <div class="quiz-content">
+                    <div class="quiz-header">
+                        <div class="countdown-widget">
+                            <p class="countdown-label">Time Remaining This Week</p>
+                            <p id="countdown" class="countdown-display" aria-live="polite">Loading...</p>
+                        </div>
+                        <button id="quiz-btn" class="btn btn-primary btn-large" aria-label="Take this week's quiz">
+                            Take the Quiz
+                        </button>
+                    </div>
+
+                    <div class="quiz-participation">
+                        <div class="participant-count-widget">
+                            <p class="participant-label">Participants This Week</p>
+                            <p id="participant-count" class="participant-number" data-count="0">0</p>
+                        </div>
+
+                        <div class="participants-container">
+                            <h3>Who's Participated</h3>
+                            <ul id="participants-list" class="participants-list" aria-label="List of quiz participants">
+                                <!-- Dynamic participant list -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="quiz-winners">
+                        <h3>Last Week's Winners</h3>
+                        <div id="winners" class="winners-list" data-week="" aria-label="Previous week's quiz winners">
+                            <!-- Dynamic winners list -->
+                        </div>
+                    </div>
+
+                    <details id="past-weeks" class="past-weeks-accordion">
+                        <summary>View Past Weeks</summary>
+                        <div class="past-weeks-content">
+                            <!-- Dynamic past weeks content -->
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section C: Rice Bowl Info -->
+        <section id="rice-bowl" class="section section-rice-bowl">
+            <div class="container">
+                <h2>About Our Rice Bowls</h2>
+
+                <div class="rice-bowl-content">
+                    <div class="rice-bowl-info">
+                        <h3>Your Cardboard Rice Bowl</h3>
+                        <p>Each student and family received a cardboard CRS Rice Bowl to use throughout Lent. This simple container represents:</p>
+                        <ul>
+                            <li><strong>Prayer:</strong> Daily reflection on those who hunger</li>
+                            <li><strong>Fasting:</strong> Small sacrifices that add up</li>
+                            <li><strong>Almsgiving:</strong> Sharing our blessings with others</li>
+                        </ul>
+                    </div>
+
+                    <div class="rice-bowl-instructions">
+                        <h3>How to Use Your Rice Bowl</h3>
+                        <ol>
+                            <li>Place your Rice Bowl in a visible location at home</li>
+                            <li>Throughout Lent, add your small sacrifices and donations</li>
+                            <li>Pray for those served by CRS programs worldwide</li>
+                            <li>Return your filled Rice Bowl by the due date below</li>
+                        </ol>
+                    </div>
+
+                    <div class="rice-bowl-deadline">
+                        <h3>Collection Due Date</h3>
+                        <p class="deadline-date">March 25, 2026</p>
+                        <p class="deadline-description">Please bring your filled Rice Bowls to your theology class or the campus ministry office.</p>
+                    </div>
+
+                    <div class="rice-bowl-inspiration">
+                        <blockquote>
+                            <p>"When we give alms, we do not simply give money, but rather we show charity, which makes us attentive to every person we meet as one who awaits our word, our attention, our love."</p>
+                            <cite>— Pope Francis</cite>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section D: Class Leaderboard -->
+        <section id="leaderboard" class="section section-leaderboard">
+            <div class="container">
+                <h2>Class Leaderboard</h2>
+                <p class="section-intro">Rice Bowl donations collected by class (updated as collections are received)</p>
+
+                <div class="leaderboard-content">
+                    <div class="table-responsive">
+                        <table id="leaderboard-table" class="leaderboard-table" aria-label="Class leaderboard rankings">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Rank</th>
+                                    <th scope="col">Class</th>
+                                    <th scope="col">Amount Collected</th>
+                                    <th scope="col">Participation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic leaderboard rows -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="rice-bowl-total-display">
+                        <p class="total-label">Total Rice Bowl Collections</p>
+                        <p id="rice-bowl-total" class="total-amount" data-amount="0">$0.00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section E: Totals & Updates -->
+        <section id="totals" class="section section-totals">
+            <div class="container">
+                <h2>Totals & Updates</h2>
+
+                <div class="totals-grid">
+                    <div class="total-card">
+                        <h3>Online Almsgiving Total</h3>
+                        <p id="online-total-display" class="total-amount-large" data-amount="0">$0.00</p>
+                        <p class="total-description">Donations made online through CRS</p>
+                    </div>
+
+                    <div class="total-card">
+                        <h3>Rice Bowl Total</h3>
+                        <p id="rice-bowl-total-display" class="total-amount-large" data-amount="0">$0.00</p>
+                        <p class="total-description">Physical Rice Bowl collections</p>
+                    </div>
+
+                    <div id="grand-total" class="total-card total-card-grand" style="display: none;" data-visible-after="2026-03-25">
+                        <h3>Grand Total</h3>
+                        <p id="grand-total-amount" class="total-amount-xlarge" data-amount="0">$0.00</p>
+                        <p class="total-description">Combined impact of our Lenten almsgiving</p>
+                    </div>
+                </div>
+
+                <div class="announcements-section">
+                    <h3>Announcements & Updates</h3>
+                    <div id="announcements" class="announcements-list" aria-live="polite">
+                        <!-- Dynamic announcements -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-branding">
+                    <h3>CRS Rice Bowl</h3>
+                    <p>Catholic Relief Services</p>
+                </div>
+
+                <div class="footer-message">
+                    <p><strong>Lent is a journey of prayer, fasting, and almsgiving.</strong></p>
+                    <p>Through CRS Rice Bowl, we encounter the face of Christ in those who are suffering and work together to bring hope and healing to communities worldwide.</p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="https://www.crsricebowl.org" target="_blank" rel="noopener noreferrer">CRS Rice Bowl Website</a>
+                    <span class="separator">|</span>
+                    <a href="https://www.crs.org" target="_blank" rel="noopener noreferrer">Catholic Relief Services</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Santa Margarita Catholic High School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

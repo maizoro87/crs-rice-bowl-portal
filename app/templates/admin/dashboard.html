@@ -1,0 +1,183 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Current Week Indicator -->
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3 class="mb-0">
+                    <i class="bi bi-calendar-week text-primary"></i>
+                    Current Week: <strong class="text-primary">Week {{ current_week }}</strong>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats Cards -->
+    <div class="col-md-4 mb-4">
+        <div class="card border-start border-primary border-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="text-muted mb-1">Online Total</h6>
+                        <h2 class="mb-0">${{ online_total|default(0)|round(2) }}</h2>
+                    </div>
+                    <div class="ms-3">
+                        <i class="bi bi-globe text-primary" style="font-size: 2.5rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card border-start border-success border-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="text-muted mb-1">Rice Bowl Total</h6>
+                        <h2 class="mb-0">${{ rice_bowl_total|default(0)|round(2) }}</h2>
+                    </div>
+                    <div class="ms-3">
+                        <i class="bi bi-bowl text-success" style="font-size: 2.5rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card border-start border-info border-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="text-muted mb-1">Total Participants</h6>
+                        <h2 class="mb-0">{{ total_participants|default(0) }}</h2>
+                    </div>
+                    <div class="ms-3">
+                        <i class="bi bi-people text-info" style="font-size: 2.5rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Next Quiz Info -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-question-circle"></i> Next Quiz
+            </div>
+            <div class="card-body">
+                {% if next_quiz %}
+                    <h5 class="card-title">{{ next_quiz.country_name }}</h5>
+                    <p class="text-muted mb-2">Week {{ next_quiz.week_number }}</p>
+                    <hr>
+                    <div class="mb-2">
+                        <strong>Opens:</strong> {{ next_quiz.opens_at.strftime('%B %d, %Y at %I:%M %p') if next_quiz.opens_at else 'Not set' }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Closes:</strong> {{ next_quiz.closes_at.strftime('%B %d, %Y at %I:%M %p') if next_quiz.closes_at else 'Not set' }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Status:</strong>
+                        {% if next_quiz.manual_visible %}
+                            <span class="badge bg-success">Visible (Manual)</span>
+                        {% elif next_quiz.schedule_mode == 'auto' %}
+                            <span class="badge bg-primary">Scheduled (Auto)</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Hidden</span>
+                        {% endif %}
+                    </div>
+                    <a href="{{ url_for('admin_bp.quizzes') }}" class="btn btn-sm btn-primary mt-2">
+                        <i class="bi bi-pencil"></i> Edit Quiz
+                    </a>
+                {% else %}
+                    <p class="text-muted mb-0">No upcoming quiz scheduled</p>
+                    <a href="{{ url_for('admin_bp.quizzes') }}" class="btn btn-sm btn-primary mt-2">
+                        <i class="bi bi-plus-circle"></i> Create Quiz
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity Summary -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-clock-history"></i> Recent Activity
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-3">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            <div>
+                                <strong>Quizzes Completed:</strong> {{ completed_quizzes|default(0) }} / 6
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-3">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-megaphone text-info me-2"></i>
+                            <div>
+                                <strong>Active Announcements:</strong> {{ active_announcements|default(0) }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-3">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-building text-warning me-2"></i>
+                            <div>
+                                <strong>Total Classes:</strong> {{ total_classes|default(0) }}
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-calendar-check text-primary me-2"></i>
+                            <div>
+                                <strong>Last Updated:</strong> {{ last_updated.strftime('%B %d, %Y at %I:%M %p') if last_updated else 'Never' }}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-lightning"></i> Quick Actions
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ url_for('admin_bp.quizzes') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-question-circle"></i> Manage Quizzes
+                    </a>
+                    <a href="{{ url_for('admin_bp.totals') }}" class="btn btn-outline-success">
+                        <i class="bi bi-calculator"></i> Update Totals
+                    </a>
+                    <a href="{{ url_for('admin_bp.announcements') }}" class="btn btn-outline-info">
+                        <i class="bi bi-megaphone"></i> Add Announcement
+                    </a>
+                    <a href="{{ url_for('admin_bp.classes') }}" class="btn btn-outline-warning">
+                        <i class="bi bi-building"></i> Manage Classes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

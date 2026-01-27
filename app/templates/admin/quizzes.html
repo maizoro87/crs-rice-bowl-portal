@@ -1,0 +1,151 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}Quizzes{% endblock %}
+{% block page_title %}Manage Quizzes{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="quizTabs" role="tablist">
+            {% for week in range(1, 7) %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link {% if week == 1 %}active{% endif %}" id="week{{ week }}-tab" data-bs-toggle="tab" data-bs-target="#week{{ week }}" type="button" role="tab" aria-controls="week{{ week }}" aria-selected="{% if week == 1 %}true{% else %}false{% endif %}">
+                    Week {{ week }}
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content mt-4" id="quizTabContent">
+            {% for week in range(1, 7) %}
+            <div class="tab-pane fade {% if week == 1 %}show active{% endif %}" id="week{{ week }}" role="tabpanel" aria-labelledby="week{{ week }}-tab">
+                <form method="POST" action="{{ url_for('admin_bp.quizzes') }}">
+                    <input type="hidden" name="week_number" value="{{ week }}">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="country_name_{{ week }}" class="form-label">Country Name</label>
+                            <input type="text" class="form-control" id="country_name_{{ week }}" name="country_name"
+                                   value="{{ quizzes[week - 1].country_name if quizzes and week <= quizzes|length else '' }}" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="forms_link_{{ week }}" class="form-label">Google Forms Link</label>
+                            <input type="url" class="form-control" id="forms_link_{{ week }}" name="forms_link"
+                                   value="{{ quizzes[week - 1].forms_link if quizzes and week <= quizzes|length else '' }}" placeholder="https://forms.gle/...">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description_{{ week }}" class="form-label">Description</label>
+                        <textarea class="form-control" id="description_{{ week }}" name="description" rows="3">{{ quizzes[week - 1].description if quizzes and week <= quizzes|length else '' }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="opens_at_{{ week }}" class="form-label">Opens At</label>
+                            <input type="datetime-local" class="form-control" id="opens_at_{{ week }}" name="opens_at"
+                                   value="{{ quizzes[week - 1].opens_at.strftime('%Y-%m-%dT%H:%M') if quizzes and week <= quizzes|length and quizzes[week - 1].opens_at else '' }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="closes_at_{{ week }}" class="form-label">Closes At</label>
+                            <input type="datetime-local" class="form-control" id="closes_at_{{ week }}" name="closes_at"
+                                   value="{{ quizzes[week - 1].closes_at.strftime('%Y-%m-%dT%H:%M') if quizzes and week <= quizzes|length and quizzes[week - 1].closes_at else '' }}">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Schedule Mode</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="schedule_mode" id="auto_{{ week }}" value="auto"
+                                   {% if quizzes and week <= quizzes|length and quizzes[week - 1].schedule_mode == 'auto' %}checked{% endif %}>
+                            <label class="form-check-label" for="auto_{{ week }}">
+                                Automatic (use Opens/Closes dates)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="schedule_mode" id="manual_{{ week }}" value="manual"
+                                   {% if quizzes and week <= quizzes|length and quizzes[week - 1].schedule_mode == 'manual' %}checked{% endif %}>
+                            <label class="form-check-label" for="manual_{{ week }}">
+                                Manual (control visibility below)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="manual_visible_{{ week }}" name="manual_visible" value="true"
+                                   {% if quizzes and week <= quizzes|length and quizzes[week - 1].manual_visible %}checked{% endif %}>
+                            <label class="form-check-label" for="manual_visible_{{ week }}">
+                                Manually set as visible (only applies if Schedule Mode is Manual)
+                            </label>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3">Participant Information</h5>
+
+                    <div class="mb-3">
+                        <label for="participant_count_{{ week }}" class="form-label">Number of Participants</label>
+                        <input type="number" class="form-control" id="participant_count_{{ week }}" name="participant_count" min="0"
+                               value="{{ quizzes[week - 1].participant_count if quizzes and week <= quizzes|length and quizzes[week - 1].participant_count else '' }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="participants_text_{{ week }}" class="form-label">Participants Text (display on public page)</label>
+                        <textarea class="form-control" id="participants_text_{{ week }}" name="participants_text" rows="3" placeholder="List participant names, one per line or comma-separated">{{ quizzes[week - 1].participants_text if quizzes and week <= quizzes|length else '' }}</textarea>
+                        <small class="form-text text-muted">Will be displayed below the quiz link on the public page</small>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3">Weekly Winners</h5>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="winner_1_{{ week }}" class="form-label">1st Place Winner</label>
+                            <input type="text" class="form-control" id="winner_1_{{ week }}" name="winner_1"
+                                   value="{{ quizzes[week - 1].winner_1 if quizzes and week <= quizzes|length else '' }}">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="winner_2_{{ week }}" class="form-label">2nd Place Winner</label>
+                            <input type="text" class="form-control" id="winner_2_{{ week }}" name="winner_2"
+                                   value="{{ quizzes[week - 1].winner_2 if quizzes and week <= quizzes|length else '' }}">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="winner_3_{{ week }}" class="form-label">3rd Place Winner</label>
+                            <input type="text" class="form-control" id="winner_3_{{ week }}" name="winner_3"
+                                   value="{{ quizzes[week - 1].winner_3 if quizzes and week <= quizzes|length else '' }}">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Save Week {{ week }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-header bg-info text-white">
+        <i class="bi bi-info-circle"></i> Tips
+    </div>
+    <div class="card-body">
+        <ul class="mb-0">
+            <li><strong>Automatic Mode:</strong> Quiz visibility is controlled by Opens/Closes dates</li>
+            <li><strong>Manual Mode:</strong> Check "Manually set as visible" to show the quiz immediately</li>
+            <li><strong>Google Forms Link:</strong> Get the shareable link from your Google Form</li>
+            <li><strong>Winners:</strong> Enter names after quiz completion to display on public page</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

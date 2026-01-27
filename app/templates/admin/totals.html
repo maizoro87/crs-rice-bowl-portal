@@ -1,0 +1,175 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}Totals{% endblock %}
+{% block page_title %}Manage Donation Totals{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('admin_bp.totals') }}">
+    <!-- CRS Donation Link -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="bi bi-link-45deg"></i> CRS Donation Link
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="crs_donation_link" class="form-label">Online Donation URL</label>
+                <input type="url" class="form-control" id="crs_donation_link" name="crs_donation_link"
+                       value="{{ crs_donation_link if crs_donation_link else '' }}"
+                       placeholder="https://support.crs.org/...">
+                <small class="form-text text-muted">This link will be displayed on the public donation page</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Online Alms Total -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <i class="bi bi-globe"></i> Online Alms Total
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="online_alms_total" class="form-label">Amount ($)</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id="online_alms_total" name="online_alms_total"
+                               step="0.01" min="0" value="{{ online_alms_total if online_alms_total else '0.00' }}">
+                    </div>
+                    <small class="form-text text-muted">Total donations received through online platform</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rice Bowl Totals by Class -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <i class="bi bi-bowl"></i> Rice Bowl Totals by Class
+        </div>
+        <div class="card-body">
+            {% if classes %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Class Name</th>
+                            <th style="width: 250px;">Amount ($)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for class in classes %}
+                        <tr>
+                            <td>
+                                <strong>{{ class.name }}</strong>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control"
+                                           name="class_{{ class.id }}_amount"
+                                           step="0.01" min="0"
+                                           value="{{ class.rice_bowl_amount if class.rice_bowl_amount else '0.00' }}">
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-active">
+                            <td><strong>Rice Bowl Total</strong></td>
+                            <td>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" class="form-control" id="rice_bowl_total_display"
+                                           value="{{ rice_bowl_total if rice_bowl_total else '0.00' }}" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-warning mb-0">
+                <i class="bi bi-exclamation-triangle"></i> No classes have been created yet.
+                <a href="{{ url_for('admin_bp.classes') }}" class="alert-link">Add classes</a> to track rice bowl donations.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Grand Total -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <i class="bi bi-trophy"></i> Grand Total
+        </div>
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3 class="mb-0">
+                        <span class="text-muted">Total Raised:</span>
+                        <strong class="text-success">${{ grand_total if grand_total else '0.00' }}</strong>
+                    </h3>
+                    <small class="text-muted">Online Alms + Rice Bowl Totals</small>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="show_grand_total" name="show_grand_total" value="true"
+                               {% if show_grand_total %}checked{% endif %}>
+                        <label class="form-check-label" for="show_grand_total">
+                            <strong>Display Grand Total on public page</strong>
+                        </label>
+                        <div>
+                            <small class="text-muted">Uncheck to hide the grand total from students/public</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Button -->
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary btn-lg">
+            <i class="bi bi-check-circle"></i> Save All Totals
+        </button>
+    </div>
+</form>
+
+<div class="card mt-4">
+    <div class="card-header bg-info text-white">
+        <i class="bi bi-info-circle"></i> Instructions
+    </div>
+    <div class="card-body">
+        <ul class="mb-0">
+            <li><strong>Online Alms Total:</strong> Enter the total amount donated through the online CRS platform</li>
+            <li><strong>Rice Bowl Totals:</strong> Enter the physical cash/check amounts collected by each class</li>
+            <li><strong>Grand Total:</strong> Automatically calculated as Online Alms + All Rice Bowl Totals</li>
+            <li><strong>Visibility Toggle:</strong> Use the checkbox to show/hide the grand total on the public page</li>
+            <li><strong>CRS Link:</strong> Update the donation link to direct students to your school's CRS donation page</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-calculate rice bowl total as user types
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('input[name^="class_"]');
+        const riceBowlTotal = document.getElementById('rice_bowl_total_display');
+
+        function updateRiceBowlTotal() {
+            let total = 0;
+            inputs.forEach(input => {
+                const value = parseFloat(input.value) || 0;
+                total += value;
+            });
+            riceBowlTotal.value = total.toFixed(2);
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('input', updateRiceBowlTotal);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+# Ignore git metadata
+.git
+.gitignore
+
+# Node / frontend dependencies (if added later)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store
+
+# Environment / config
+.env
+.env.*
+
+# Editor / OS files
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Build artifacts (adjust as your stack evolves)
+dist
+build
+out
+coverage

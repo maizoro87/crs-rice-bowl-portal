@@ -1,0 +1,139 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}Account{% endblock %}
+{% block page_title %}Account Settings{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <!-- Account Information -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-person-circle"></i> Account Information
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label text-muted">Username</label>
+                    <div class="form-control-plaintext">
+                        <strong>{{ current_user.username if current_user else 'admin' }}</strong>
+                    </div>
+                    <small class="form-text text-muted">Username cannot be changed</small>
+                </div>
+
+                <div class="mb-0">
+                    <label class="form-label text-muted">Role</label>
+                    <div class="form-control-plaintext">
+                        <span class="badge bg-success">Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Change Password -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-lock"></i> Change Password
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('admin_bp.account') }}" id="changePasswordForm">
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password" required minlength="8">
+                        <small class="form-text text-muted">Password must be at least 8 characters long</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required minlength="8">
+                    </div>
+
+                    <div id="passwordError" class="alert alert-danger d-none" role="alert"></div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-key"></i> Change Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Security Tips -->
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <i class="bi bi-shield-exclamation"></i> Security Tips
+            </div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li>Use a strong, unique password that you don't use anywhere else</li>
+                    <li>Include a mix of uppercase, lowercase, numbers, and special characters</li>
+                    <li>Change your password regularly (every 3-6 months recommended)</li>
+                    <li>Never share your admin password with anyone</li>
+                    <li>Log out when you're done using the admin panel</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('changePasswordForm');
+        const newPassword = document.getElementById('new_password');
+        const confirmPassword = document.getElementById('confirm_password');
+        const errorDiv = document.getElementById('passwordError');
+
+        form.addEventListener('submit', function(e) {
+            errorDiv.classList.add('d-none');
+
+            if (newPassword.value !== confirmPassword.value) {
+                e.preventDefault();
+                errorDiv.textContent = 'New password and confirm password do not match.';
+                errorDiv.classList.remove('d-none');
+                confirmPassword.focus();
+                return false;
+            }
+
+            if (newPassword.value.length < 8) {
+                e.preventDefault();
+                errorDiv.textContent = 'Password must be at least 8 characters long.';
+                errorDiv.classList.remove('d-none');
+                newPassword.focus();
+                return false;
+            }
+        });
+
+        // Real-time password match validation
+        confirmPassword.addEventListener('input', function() {
+            if (this.value && newPassword.value !== this.value) {
+                this.classList.add('is-invalid');
+                this.classList.remove('is-valid');
+            } else if (this.value) {
+                this.classList.add('is-valid');
+                this.classList.remove('is-invalid');
+            } else {
+                this.classList.remove('is-valid', 'is-invalid');
+            }
+        });
+
+        newPassword.addEventListener('input', function() {
+            if (confirmPassword.value) {
+                if (this.value !== confirmPassword.value) {
+                    confirmPassword.classList.add('is-invalid');
+                    confirmPassword.classList.remove('is-valid');
+                } else {
+                    confirmPassword.classList.add('is-valid');
+                    confirmPassword.classList.remove('is-invalid');
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,1168 @@
+/* ========================================
+   CRS Rice Bowl / Lenten Almsgiving Portal
+   Beautiful Lenten Purple Theme
+   ======================================== */
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+/* ========================================
+   CSS VARIABLES - COLOR PALETTE
+   ======================================== */
+:root {
+  /* Lenten Purple Palette */
+  --primary-purple: #4a0080;
+  --secondary-purple: #6b2d9b;
+  --accent-purple: #9d4edd;
+  --gold-accent: #c9a227;
+  --background-lavender: #f8f5fc;
+  --text-dark: #2d2d2d;
+  --white: #ffffff;
+
+  /* Semantic Colors */
+  --gold-medal: #d4af37;
+  --silver-medal: #c0c0c0;
+  --bronze-medal: #cd7f32;
+
+  /* Utility Colors */
+  --shadow-sm: rgba(74, 0, 128, 0.1);
+  --shadow-md: rgba(74, 0, 128, 0.15);
+  --shadow-lg: rgba(74, 0, 128, 0.2);
+  --overlay-dark: rgba(45, 45, 45, 0.8);
+
+  /* Typography */
+  --font-heading: 'Georgia', serif;
+  --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing */
+  --section-padding: 60px;
+  --container-max-width: 1200px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background-color: var(--background-lavender);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--primary-purple);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 3rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-accent), var(--accent-purple));
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--primary-purple);
+}
+
+/* ========================================
+   LAYOUT CONTAINER
+   ======================================== */
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+header {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+  color: var(--white);
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(157, 78, 221, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(201, 162, 39, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+header .container {
+  position: relative;
+  z-index: 1;
+}
+
+header h1 {
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  animation: fadeInDown 0.8s ease;
+}
+
+header .subtitle {
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+header .cta-button {
+  display: inline-block;
+  background-color: var(--gold-accent);
+  color: var(--text-dark);
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all var(--transition-smooth);
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+header .cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(201, 162, 39, 0.4);
+  background-color: #d4b43f;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+nav {
+  background-color: var(--white);
+  box-shadow: 0 2px 10px var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all var(--transition-smooth);
+}
+
+nav .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 20px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+nav a {
+  color: var(--primary-purple);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: var(--gold-accent);
+  transition: width var(--transition-smooth);
+}
+
+nav a:hover {
+  color: var(--secondary-purple);
+  background-color: var(--background-lavender);
+}
+
+nav a:hover::after {
+  width: 80%;
+}
+
+nav a.active {
+  background-color: var(--accent-purple);
+  color: var(--white);
+}
+
+/* Mobile Navigation Toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--primary-purple);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/* ========================================
+   SECTIONS
+   ======================================== */
+section {
+  padding: var(--section-padding) 0;
+  animation: fadeIn 0.6s ease;
+}
+
+section:nth-child(even) {
+  background-color: var(--white);
+}
+
+section:nth-child(odd) {
+  background-color: var(--background-lavender);
+}
+
+/* ========================================
+   COUNTDOWN TIMER
+   ======================================== */
+.countdown-container {
+  text-align: center;
+  margin: 2rem 0 3rem;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.countdown-box {
+  background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+  color: var(--white);
+  padding: 1.5rem 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px var(--shadow-md);
+  min-width: 120px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.countdown-number {
+  font-size: 3rem;
+  font-weight: 700;
+  display: block;
+  font-family: var(--font-heading);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.5rem;
+  opacity: 0.9;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* ========================================
+   QUIZ SECTION
+   ======================================== */
+.quiz-section {
+  text-align: center;
+}
+
+.quiz-button {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--secondary-purple), var(--accent-purple));
+  color: var(--white);
+  padding: 1.2rem 3rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: all var(--transition-smooth);
+  box-shadow: 0 6px 20px rgba(157, 78, 221, 0.3);
+  margin: 2rem 0;
+  border: none;
+  cursor: pointer;
+}
+
+.quiz-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(157, 78, 221, 0.4);
+}
+
+.quiz-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.participants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.participant-card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-sm);
+  transition: all var(--transition-smooth);
+  border-left: 4px solid var(--accent-purple);
+}
+
+.participant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px var(--shadow-md);
+}
+
+.participant-name {
+  font-weight: 600;
+  color: var(--primary-purple);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.participant-class {
+  color: var(--text-dark);
+  opacity: 0.8;
+}
+
+.winner-badge {
+  background: var(--gold-accent);
+  color: var(--text-dark);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* ========================================
+   LEADERBOARD
+   ======================================== */
+.leaderboard-table {
+  width: 100%;
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px var(--shadow-md);
+  margin: 2rem 0;
+}
+
+.leaderboard-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table thead {
+  background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+  color: var(--white);
+}
+
+.leaderboard-table th {
+  padding: 1.2rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.leaderboard-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(74, 0, 128, 0.1);
+}
+
+.leaderboard-table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.leaderboard-table tbody tr:nth-child(even) {
+  background-color: var(--background-lavender);
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: rgba(157, 78, 221, 0.1);
+}
+
+/* Top 3 Highlighting */
+.leaderboard-table tbody tr:nth-child(1) {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.15), transparent);
+  border-left: 5px solid var(--gold-medal);
+  font-weight: 600;
+}
+
+.leaderboard-table tbody tr:nth-child(2) {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.15), transparent);
+  border-left: 5px solid var(--silver-medal);
+  font-weight: 600;
+}
+
+.leaderboard-table tbody tr:nth-child(3) {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.15), transparent);
+  border-left: 5px solid var(--bronze-medal);
+  font-weight: 600;
+}
+
+.rank-badge {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: 700;
+  background: var(--accent-purple);
+  color: var(--white);
+}
+
+.rank-badge.gold {
+  background: var(--gold-medal);
+  color: var(--text-dark);
+}
+
+.rank-badge.silver {
+  background: var(--silver-medal);
+  color: var(--text-dark);
+}
+
+.rank-badge.bronze {
+  background: var(--bronze-medal);
+  color: var(--white);
+}
+
+/* Mobile Table Scroll */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ========================================
+   COLLAPSIBLE SECTIONS (ACCORDION)
+   ======================================== */
+.collapsible {
+  margin: 1rem 0;
+}
+
+.collapsible-header {
+  background: linear-gradient(135deg, var(--secondary-purple), var(--accent-purple));
+  color: var(--white);
+  padding: 1.2rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-smooth);
+  box-shadow: 0 3px 10px var(--shadow-sm);
+}
+
+.collapsible-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-md);
+}
+
+.collapsible-header h3 {
+  margin: 0;
+  color: var(--white);
+  font-size: 1.3rem;
+}
+
+.collapsible-icon {
+  font-size: 1.5rem;
+  transition: transform var(--transition-smooth);
+}
+
+.collapsible.active .collapsible-icon {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-slow) ease;
+  background: var(--white);
+  border-radius: 0 0 10px 10px;
+}
+
+.collapsible.active .collapsible-content {
+  max-height: 2000px;
+  border: 2px solid var(--accent-purple);
+  border-top: none;
+}
+
+.collapsible-content-inner {
+  padding: 2rem 1.5rem;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-smooth);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--gold-accent);
+  color: var(--text-dark);
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #d4b43f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 162, 39, 0.4);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-purple);
+  border: 2px solid var(--primary-purple);
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-purple);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px var(--shadow-sm);
+  transition: all var(--transition-smooth);
+  border-top: 4px solid var(--accent-purple);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px var(--shadow-md);
+}
+
+.card h3 {
+  margin-bottom: 1rem;
+}
+
+/* ========================================
+   TOTALS DISPLAY
+   ======================================== */
+.totals-section {
+  background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+  color: var(--white);
+  padding: 3rem 0;
+  text-align: center;
+  margin: 2rem 0;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px var(--shadow-lg);
+}
+
+.totals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.total-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.total-label {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.total-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--gold-accent);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.grand-total {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: rgba(201, 162, 39, 0.2);
+  border-radius: 15px;
+  border: 3px solid var(--gold-accent);
+}
+
+.grand-total .total-amount {
+  font-size: 3.5rem;
+}
+
+/* Currency Formatting */
+.currency::before {
+  content: '$';
+  font-size: 0.7em;
+  vertical-align: super;
+  margin-right: 0.1em;
+}
+
+/* ========================================
+   ANNOUNCEMENTS BAR
+   ======================================== */
+.announcement-bar {
+  background: linear-gradient(135deg, var(--gold-accent), #d4b43f);
+  color: var(--text-dark);
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  position: relative;
+  animation: slideDown 0.5s ease;
+}
+
+.announcement-bar .close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-dark);
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.announcement-bar .close-btn:hover {
+  opacity: 1;
+}
+
+/* ========================================
+   LOADING STATES
+   ======================================== */
+.loading {
+  text-align: center;
+  padding: 3rem;
+}
+
+.spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(74, 0, 128, 0.1);
+  border-top-color: var(--primary-purple);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  margin-top: 1rem;
+  color: var(--primary-purple);
+  font-weight: 600;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+footer {
+  background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+  color: var(--white);
+  padding: 2rem 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+footer p {
+  margin: 0.5rem 0;
+  opacity: 0.9;
+}
+
+footer a {
+  color: var(--gold-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+footer a:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Fade in elements on scroll (can be triggered with JS) */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: 40px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .countdown-box {
+    min-width: 100px;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .countdown-number {
+    font-size: 2.5rem;
+  }
+
+  .totals-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (<768px) */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 30px;
+  }
+
+  html {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  header {
+    padding: 2rem 1rem 1.5rem;
+  }
+
+  header .subtitle {
+    font-size: 1.1rem;
+  }
+
+  /* Mobile Navigation */
+  nav .container {
+    justify-content: space-between;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    box-shadow: 0 4px 10px var(--shadow-sm);
+    padding: 1rem 0;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav li {
+    width: 100%;
+    text-align: center;
+  }
+
+  nav a {
+    display: block;
+    padding: 1rem;
+  }
+
+  /* Countdown Timer */
+  .countdown-timer {
+    gap: 1rem;
+  }
+
+  .countdown-box {
+    min-width: 80px;
+    padding: 1rem;
+  }
+
+  .countdown-number {
+    font-size: 2rem;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+
+  /* Buttons */
+  .quiz-button,
+  .cta-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  /* Cards and Grids */
+  .participants-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .totals-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .total-amount {
+    font-size: 2rem;
+  }
+
+  .grand-total .total-amount {
+    font-size: 2.5rem;
+  }
+
+  /* Table Responsiveness */
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 0.8rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .leaderboard-table th:nth-child(n+3),
+  .leaderboard-table td:nth-child(n+3) {
+    display: none;
+  }
+
+  /* Cards */
+  .card {
+    padding: 1.5rem;
+  }
+
+  /* Collapsible */
+  .collapsible-header {
+    padding: 1rem;
+  }
+
+  .collapsible-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .collapsible-content-inner {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Extra Small Devices (<480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .countdown-box {
+    min-width: 70px;
+    padding: 0.8rem 0.6rem;
+  }
+
+  .countdown-number {
+    font-size: 1.8rem;
+  }
+
+  .rank-badge {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+  header,
+  nav,
+  footer,
+  .quiz-button,
+  .cta-button,
+  .collapsible-icon {
+    display: none;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .collapsible-content {
+    max-height: none !important;
+    border: 1px solid #ccc;
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.text-center {
+  text-align: center;
+}
+
+.text-purple {
+  color: var(--primary-purple);
+}
+
+.text-gold {
+  color: var(--gold-accent);
+}
+
+.bg-white {
+  background-color: var(--white);
+}
+
+.bg-lavender {
+  background-color: var(--background-lavender);
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus Styles */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--gold-accent);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-purple: #3a0060;
+    --text-dark: #000000;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark Mode Support (Optional Future Enhancement) */
+@media (prefers-color-scheme: dark) {
+  /* Can be expanded later if dark mode is desired */
+}

@@ -1,0 +1,36 @@
+services:
+  # Flask application
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: crs-site-flask:local
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=${SECRET_KEY:-change-this-in-production-please}
+    volumes:
+      # Persist SQLite database
+      - crs-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Nginx reverse proxy and static file server
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - flask
+    restart: unless-stopped
+
+volumes:
+  crs-data:
+    name: crs-site-data
