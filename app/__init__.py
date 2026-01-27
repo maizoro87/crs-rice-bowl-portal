@@ -3,7 +3,7 @@ Flask application factory for CRS Rice Bowl application.
 """
 import os
 from pathlib import Path
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_login import LoginManager
 from app.config import Config
 from app.models import db, User
@@ -19,7 +19,11 @@ def create_app(config_class=Config) -> Flask:
     Returns:
         Configured Flask application instance
     """
-    app = Flask(__name__)
+    # Set up static folder to serve public files
+    base_dir = Path(__file__).resolve().parent.parent
+    public_dir = base_dir / 'public'
+
+    app = Flask(__name__, static_folder=str(public_dir), static_url_path='')
     app.config.from_object(config_class)
 
     # Ensure data directory exists
@@ -54,6 +58,11 @@ def create_app(config_class=Config) -> Flask:
 
     app.register_blueprint(api_bp, url_prefix='/api')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+
+    # Serve index.html at root
+    @app.route('/')
+    def index():
+        return send_from_directory(app.static_folder, 'index.html')
 
     # Initialize database and create default admin user
     with app.app_context():

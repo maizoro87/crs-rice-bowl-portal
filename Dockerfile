@@ -1,5 +1,5 @@
 # CRS Rice Bowl Portal - Flask Application
-# Multi-stage build for smaller image
+# Single container for Railway deployment
 
 FROM python:3.11-slim as builder
 
@@ -20,6 +20,7 @@ ENV PATH=/root/.local/bin:$PATH
 
 # Copy application code
 COPY app/ ./app/
+COPY public/ ./public/
 COPY run.py .
 
 # Create data directory for SQLite
@@ -30,8 +31,9 @@ ENV FLASK_APP=run.py
 ENV FLASK_ENV=production
 ENV PYTHONUNBUFFERED=1
 
-# Expose port
+# Railway sets PORT env variable
+ENV PORT=5000
 EXPOSE 5000
 
-# Run with gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--threads", "4", "run:app"]
+# Run with gunicorn (use PORT from environment)
+CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 4 run:app
