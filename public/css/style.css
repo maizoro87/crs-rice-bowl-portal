@@ -1166,3 +1166,259 @@ textarea:focus {
 @media (prefers-color-scheme: dark) {
   /* Can be expanded later if dark mode is desired */
 }
+
+/* ========================================
+   CRS LOGO STYLES
+   ======================================== */
+.header-logo {
+  margin-bottom: 1rem;
+}
+
+.crs-logo {
+  max-width: 150px;
+  height: auto;
+}
+
+.footer-logo {
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   HERO STATS SECTION (Top 3 + Thermometer)
+   ======================================== */
+.section-hero-stats {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+  color: var(--white);
+  padding: 3rem 0;
+}
+
+.section-hero-stats h2 {
+  color: var(--white);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-hero-stats h2::after {
+  background: var(--gold-accent);
+}
+
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Top 3 Classes Podium */
+.top-classes-showcase {
+  text-align: center;
+}
+
+.top-3-podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.podium-place {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  min-width: 120px;
+  backdrop-filter: blur(10px);
+  transition: transform var(--transition-smooth);
+}
+
+.podium-place:hover {
+  transform: translateY(-5px);
+}
+
+.podium-1st {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.2) 100%);
+  border: 2px solid var(--gold-medal);
+  padding: 2rem 1.5rem;
+  min-width: 140px;
+}
+
+.podium-2nd {
+  background: linear-gradient(180deg, rgba(192, 192, 192, 0.3) 0%, rgba(192, 192, 192, 0.15) 100%);
+  border: 2px solid var(--silver-medal);
+}
+
+.podium-3rd {
+  background: linear-gradient(180deg, rgba(205, 127, 50, 0.3) 0%, rgba(205, 127, 50, 0.15) 100%);
+  border: 2px solid var(--bronze-medal);
+}
+
+.podium-medal {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.podium-1st .podium-medal {
+  font-size: 3rem;
+}
+
+.podium-name {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  min-height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.podium-amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+}
+
+.podium-1st .podium-amount {
+  font-size: 1.5rem;
+}
+
+/* Donation Thermometer */
+.donation-thermometer-container {
+  text-align: center;
+}
+
+.thermometer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+}
+
+.thermometer-tube {
+  width: 60px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 30px 30px 0 0;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.thermometer-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, var(--gold-accent) 0%, #e8b923 50%, #b8860b 100%);
+  border-radius: 0 0 27px 27px;
+  transition: height 1s ease-out;
+}
+
+.thermometer-bulb {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--gold-accent) 0%, #b8860b 100%);
+  border-radius: 50%;
+  margin-top: -10px;
+  border: 4px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.5);
+}
+
+.thermometer-amount {
+  margin-top: 1rem;
+}
+
+.total-display {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Hero Stats */
+@media (max-width: 768px) {
+  .hero-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .top-3-podium {
+    flex-wrap: wrap;
+  }
+
+  .podium-place {
+    min-width: 100px;
+    padding: 1rem 0.75rem;
+  }
+
+  .podium-1st {
+    min-width: 120px;
+    padding: 1.5rem 1rem;
+  }
+
+  .thermometer-tube {
+    height: 150px;
+  }
+
+  .total-display {
+    font-size: 2rem;
+  }
+}
+
+/* ========================================
+   ABOUT CRS SECTION (formerly Rice Bowl)
+   ======================================== */
+.section-about-crs {
+  background-color: var(--white);
+}
+
+.about-crs-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.about-crs-info,
+.about-crs-instructions,
+.about-crs-deadline,
+.about-crs-inspiration {
+  padding: 1.5rem;
+  background: var(--background-lavender);
+  border-radius: 12px;
+}
+
+.about-crs-deadline {
+  text-align: center;
+}
+
+.about-crs-inspiration {
+  grid-column: span 2;
+}
+
+.about-crs-inspiration blockquote {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--secondary-purple);
+  border-left: 4px solid var(--gold-accent);
+  padding-left: 1.5rem;
+  margin: 0;
+}
+
+.about-crs-inspiration cite {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--primary-purple);
+}
+
+@media (max-width: 768px) {
+  .about-crs-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-crs-inspiration {
+    grid-column: span 1;
+  }
+}

@@ -109,9 +109,15 @@ function populatePage(data) {
   // Populate leaderboard
   populateLeaderboard(data.classes || []);
 
+  // Populate top 3 classes showcase
+  populateTop3Classes(data.classes || []);
+
   // Display totals
-  displayRiceBowlTotal(data.rice_bowl_total);
+  displayClassDonationsTotal(data.rice_bowl_total);
   displayGrandTotal(data, data.settings?.show_grand_total);
+
+  // Update thermometer
+  updateThermometer(data.grand_total || 0);
 
   console.log('✅ Page populated successfully');
 }
@@ -511,15 +517,78 @@ function populateLeaderboard(classes) {
 }
 
 /**
- * Display rice bowl total
+ * Display class donations total
  */
-function displayRiceBowlTotal(amount) {
-  const element = document.getElementById('rice-bowl-total');
-  if (!element) return;
+function displayClassDonationsTotal(amount) {
+  // Update both the leaderboard total and the totals section
+  const elements = [
+    document.getElementById('class-donations-total'),
+    document.getElementById('class-donations-total-display')
+  ];
 
   const formatted = formatCurrency(parseFloat(amount) || 0);
-  element.textContent = formatted;
-  console.log(`🍚 Rice bowl total: ${formatted}`);
+
+  elements.forEach(element => {
+    if (element) element.textContent = formatted;
+  });
+
+  console.log(`💰 Class donations total: ${formatted}`);
+}
+
+/**
+ * Populate top 3 classes showcase
+ */
+function populateTop3Classes(classes) {
+  if (!classes || classes.length === 0) {
+    console.log('📊 No classes to display in top 3');
+    return;
+  }
+
+  // Sort by amount descending
+  const sortedClasses = [...classes].sort((a, b) =>
+    (parseFloat(b.rice_bowl_amount) || 0) - (parseFloat(a.rice_bowl_amount) || 0)
+  );
+
+  // Populate top 3
+  for (let i = 0; i < 3 && i < sortedClasses.length; i++) {
+    const cls = sortedClasses[i];
+    const rank = i + 1;
+
+    const nameEl = document.getElementById(`top-${rank}-name`);
+    const amountEl = document.getElementById(`top-${rank}-amount`);
+
+    if (nameEl) nameEl.textContent = cls.name || '--';
+    if (amountEl) amountEl.textContent = formatCurrency(parseFloat(cls.rice_bowl_amount) || 0);
+  }
+
+  console.log('🏆 Top 3 classes populated');
+}
+
+/**
+ * Update donation thermometer
+ */
+function updateThermometer(grandTotal) {
+  const fillElement = document.getElementById('thermometer-fill');
+  const totalElement = document.getElementById('thermometer-total');
+
+  if (!fillElement || !totalElement) return;
+
+  const amount = parseFloat(grandTotal) || 0;
+
+  // Display the amount
+  totalElement.textContent = formatCurrency(amount);
+
+  // Calculate fill percentage (cap at 100%)
+  // Using a reasonable max of $10,000 for visual scaling, but no hard limit
+  const maxForVisual = 10000;
+  const fillPercent = Math.min((amount / maxForVisual) * 100, 100);
+
+  // Animate the fill
+  setTimeout(() => {
+    fillElement.style.height = `${Math.max(fillPercent, 5)}%`; // Minimum 5% so bulb looks connected
+  }, 500);
+
+  console.log(`🌡️ Thermometer: ${formatCurrency(amount)} (${fillPercent.toFixed(1)}% fill)`);
 }
 
 /**

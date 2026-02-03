@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Santa Margarita Catholic High School Lenten Almsgiving and CRS Rice Bowl Portal">
-    <title>Lenten Alms & CRS Rice Bowl Portal | SMCHS</title>
+    <meta name="description" content="Santa Margarita Catholic High School Lenten Almsgiving Portal - Support CRS">
+    <title>Lenten Alms Portal | SMCHS</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,26 +12,72 @@
     <header class="site-header" role="banner">
         <div class="container">
             <div class="header-content">
+                <div class="header-logo">
+                    <img src="images/crs-logo.png" alt="Catholic Relief Services" class="crs-logo">
+                </div>
                 <div class="header-text">
-                    <h1>Lenten Alms & CRS Rice Bowl Portal</h1>
-                    <p class="subtitle">Join our school community in practicing almsgiving this Lent through Catholic Relief Services Rice Bowl</p>
+                    <h1>Lenten Alms Portal</h1>
+                    <p class="subtitle">Join our school community in practicing almsgiving this Lent through Catholic Relief Services</p>
                 </div>
                 <div class="header-cta">
-                    <a href="#" id="crs-donate-btn" class="btn btn-primary" aria-label="Donate to CRS Rice Bowl online">
-                        Give Alms Online (CRS Rice Bowl)
+                    <a href="#" id="crs-donate-btn" class="btn btn-primary" aria-label="Donate to CRS online">
+                        Give Alms Online
                     </a>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- Hero Section: Top 3 Classes & Thermometer -->
+    <section id="hero-stats" class="section section-hero-stats">
+        <div class="container">
+            <div class="hero-stats-grid">
+                <!-- Top 3 Classes Showcase -->
+                <div class="top-classes-showcase">
+                    <h2>Top Donors</h2>
+                    <div id="top-3-classes" class="top-3-podium">
+                        <div class="podium-place podium-2nd" data-rank="2">
+                            <div class="podium-medal">🥈</div>
+                            <div class="podium-name" id="top-2-name">--</div>
+                            <div class="podium-amount" id="top-2-amount">$0.00</div>
+                        </div>
+                        <div class="podium-place podium-1st" data-rank="1">
+                            <div class="podium-medal">🥇</div>
+                            <div class="podium-name" id="top-1-name">--</div>
+                            <div class="podium-amount" id="top-1-amount">$0.00</div>
+                        </div>
+                        <div class="podium-place podium-3rd" data-rank="3">
+                            <div class="podium-medal">🥉</div>
+                            <div class="podium-name" id="top-3-name">--</div>
+                            <div class="podium-amount" id="top-3-amount">$0.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Donation Thermometer -->
+                <div class="donation-thermometer-container">
+                    <h2>Total Raised</h2>
+                    <div class="thermometer">
+                        <div class="thermometer-tube">
+                            <div id="thermometer-fill" class="thermometer-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="thermometer-bulb"></div>
+                    </div>
+                    <div class="thermometer-amount">
+                        <span id="thermometer-total" class="total-display">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Navigation -->
     <nav class="main-nav" role="navigation" aria-label="Main navigation">
         <div class="container">
             <ul class="nav-list">
                 <li><a href="#quiz">This Week's Quiz</a></li>
-                <li><a href="#rice-bowl">Rice Bowl Info</a></li>
-                <li><a href="#leaderboard">Class Leaderboard</a></li>
+                <li><a href="#about-crs">About CRS</a></li>
+                <li><a href="#leaderboard">Class Donations</a></li>
                 <li><a href="#totals">Totals & Updates</a></li>
             </ul>
         </div>
@@ -57,8 +103,8 @@
                     </div>
 
                     <div class="donation-widget">
-                        <a href="#" id="crs-donate-btn-section" class="btn btn-large btn-primary" aria-label="Donate to CRS Rice Bowl online">
-                            Donate to CRS Rice Bowl
+                        <a href="#" id="crs-donate-btn-section" class="btn btn-large btn-primary" aria-label="Donate to CRS online">
+                            Donate to CRS
                         </a>
                         <div class="online-total-display">
                             <p class="total-label">Online Alms Total</p>
@@ -81,7 +127,7 @@
                         </li>
                         <li data-date="2026-03-25">
                             <span class="day-date">March 25, 2026</span>
-                            <span class="day-description">Rice Bowl Collection Due</span>
+                            <span class="day-description">Class Donations Due</span>
                         </li>
                     </ul>
                 </div>
@@ -135,15 +181,15 @@
             </div>
         </section>
 
-        <!-- Section C: Rice Bowl Info -->
-        <section id="rice-bowl" class="section section-rice-bowl">
+        <!-- Section C: About CRS -->
+        <section id="about-crs" class="section section-about-crs">
             <div class="container">
-                <h2>About Our Rice Bowls</h2>
+                <h2>About CRS Lenten Almsgiving</h2>
 
-                <div class="rice-bowl-content">
-                    <div class="rice-bowl-info">
-                        <h3>Your Cardboard Rice Bowl</h3>
-                        <p>Each student and family received a cardboard CRS Rice Bowl to use throughout Lent. This simple container represents:</p>
+                <div class="about-crs-content">
+                    <div class="about-crs-info">
+                        <h3>Our Lenten Journey</h3>
+                        <p>This Lent, our school community comes together to practice the three pillars of Lenten observance:</p>
                         <ul>
                             <li><strong>Prayer:</strong> Daily reflection on those who hunger</li>
                             <li><strong>Fasting:</strong> Small sacrifices that add up</li>
@@ -151,23 +197,23 @@
                         </ul>
                     </div>
 
-                    <div class="rice-bowl-instructions">
-                        <h3>How to Use Your Rice Bowl</h3>
+                    <div class="about-crs-instructions">
+                        <h3>How to Participate</h3>
                         <ol>
-                            <li>Place your Rice Bowl in a visible location at home</li>
-                            <li>Throughout Lent, add your small sacrifices and donations</li>
+                            <li>Collect donations throughout Lent</li>
+                            <li>Donate online through the CRS link above</li>
                             <li>Pray for those served by CRS programs worldwide</li>
-                            <li>Return your filled Rice Bowl by the due date below</li>
+                            <li>Bring your class donations by the due date below</li>
                         </ol>
                     </div>
 
-                    <div class="rice-bowl-deadline">
+                    <div class="about-crs-deadline">
                         <h3>Collection Due Date</h3>
                         <p class="deadline-date">March 25, 2026</p>
-                        <p class="deadline-description">Please bring your filled Rice Bowls to your theology class or the campus ministry office.</p>
+                        <p class="deadline-description">Please bring your donations to your theology class or the campus ministry office.</p>
                     </div>
 
-                    <div class="rice-bowl-inspiration">
+                    <div class="about-crs-inspiration">
                         <blockquote>
                             <p>"When we give alms, we do not simply give money, but rather we show charity, which makes us attentive to every person we meet as one who awaits our word, our attention, our love."</p>
                             <cite>— Pope Francis</cite>
@@ -177,21 +223,20 @@
             </div>
         </section>
 
-        <!-- Section D: Class Leaderboard -->
+        <!-- Section D: Class Donations Leaderboard -->
         <section id="leaderboard" class="section section-leaderboard">
             <div class="container">
-                <h2>Class Leaderboard</h2>
-                <p class="section-intro">Rice Bowl donations collected by class (updated as collections are received)</p>
+                <h2>Class Donations Leaderboard</h2>
+                <p class="section-intro">Lenten alms collected by class (updated as collections are received)</p>
 
                 <div class="leaderboard-content">
                     <div class="table-responsive">
-                        <table id="leaderboard-table" class="leaderboard-table" aria-label="Class leaderboard rankings">
+                        <table id="leaderboard-table" class="leaderboard-table" aria-label="Class donation rankings">
                             <thead>
                                 <tr>
                                     <th scope="col">Rank</th>
                                     <th scope="col">Class</th>
                                     <th scope="col">Amount Collected</th>
-                                    <th scope="col">Participation</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -200,9 +245,9 @@
                         </table>
                     </div>
 
-                    <div class="rice-bowl-total-display">
-                        <p class="total-label">Total Rice Bowl Collections</p>
-                        <p id="rice-bowl-total" class="total-amount" data-amount="0">$0.00</p>
+                    <div class="class-donations-total-display">
+                        <p class="total-label">Total Class Donations</p>
+                        <p id="class-donations-total" class="total-amount" data-amount="0">$0.00</p>
                     </div>
                 </div>
             </div>
@@ -221,9 +266,9 @@
                     </div>
 
                     <div class="total-card">
-                        <h3>Rice Bowl Total</h3>
-                        <p id="rice-bowl-total-display" class="total-amount-large" data-amount="0">$0.00</p>
-                        <p class="total-description">Physical Rice Bowl collections</p>
+                        <h3>Class Donations Total</h3>
+                        <p id="class-donations-total-display" class="total-amount-large" data-amount="0">$0.00</p>
+                        <p class="total-description">Donations collected by classes</p>
                     </div>
 
                     <div id="grand-total" class="total-card total-card-grand" style="display: none;" data-visible-after="2026-03-25">
@@ -248,19 +293,19 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-branding">
-                    <h3>CRS Rice Bowl</h3>
+                    <img src="images/crs-logo.png" alt="CRS" class="footer-logo">
                     <p>Catholic Relief Services</p>
                 </div>
 
                 <div class="footer-message">
                     <p><strong>Lent is a journey of prayer, fasting, and almsgiving.</strong></p>
-                    <p>Through CRS Rice Bowl, we encounter the face of Christ in those who are suffering and work together to bring hope and healing to communities worldwide.</p>
+                    <p>Through CRS, we encounter the face of Christ in those who are suffering and work together to bring hope and healing to communities worldwide.</p>
                 </div>
 
                 <div class="footer-links">
-                    <a href="https://www.crsricebowl.org" target="_blank" rel="noopener noreferrer">CRS Rice Bowl Website</a>
-                    <span class="separator">|</span>
                     <a href="https://www.crs.org" target="_blank" rel="noopener noreferrer">Catholic Relief Services</a>
+                    <span class="separator">|</span>
+                    <a href="https://www.crsricebowl.org" target="_blank" rel="noopener noreferrer">CRS Rice Bowl</a>
                 </div>
             </div>
 

@@ -41,10 +41,10 @@
         </div>
     </div>
 
-    <!-- Rice Bowl Totals by Class -->
+    <!-- Class Donation Totals -->
     <div class="card mb-4">
         <div class="card-header bg-success text-white">
-            <i class="bi bi-bowl"></i> Rice Bowl Totals by Class
+            <i class="bi bi-cash-stack"></i> Class Donation Totals
         </div>
         <div class="card-body">
             {% if classes %}
@@ -76,7 +76,7 @@
                     </tbody>
                     <tfoot>
                         <tr class="table-active">
-                            <td><strong>Rice Bowl Total</strong></td>
+                            <td><strong>Class Donations Total</strong></td>
                             <td>
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-text">$</span>
@@ -91,7 +91,7 @@
             {% else %}
             <div class="alert alert-warning mb-0">
                 <i class="bi bi-exclamation-triangle"></i> No classes have been created yet.
-                <a href="{{ url_for('admin_bp.classes') }}" class="alert-link">Add classes</a> to track rice bowl donations.
+                <a href="{{ url_for('admin_bp.classes') }}" class="alert-link">Add classes</a> to track class donations.
             </div>
             {% endif %}
         </div>
@@ -109,7 +109,7 @@
                         <span class="text-muted">Total Raised:</span>
                         <strong class="text-success">${{ grand_total if grand_total else '0.00' }}</strong>
                     </h3>
-                    <small class="text-muted">Online Alms + Rice Bowl Totals</small>
+                    <small class="text-muted">Online Alms + Class Donation Totals</small>
                 </div>
                 <div class="col-md-6">
                     <div class="form-check">
@@ -142,8 +142,8 @@
     <div class="card-body">
         <ul class="mb-0">
             <li><strong>Online Alms Total:</strong> Enter the total amount donated through the online CRS platform</li>
-            <li><strong>Rice Bowl Totals:</strong> Enter the physical cash/check amounts collected by each class</li>
-            <li><strong>Grand Total:</strong> Automatically calculated as Online Alms + All Rice Bowl Totals</li>
+            <li><strong>Class Donations:</strong> Enter the cash/check amounts collected by each class</li>
+            <li><strong>Grand Total:</strong> Automatically calculated as Online Alms + All Class Donations</li>
             <li><strong>Visibility Toggle:</strong> Use the checkbox to show/hide the grand total on the public page</li>
             <li><strong>CRS Link:</strong> Update the donation link to direct students to your school's CRS donation page</li>
         </ul>

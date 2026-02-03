@@ -38,7 +38,7 @@
                 <thead>
                     <tr>
                         <th style="width: 60%;">Class Name</th>
-                        <th>Rice Bowl Amount</th>
+                        <th>Donation Amount</th>
                         <th style="width: 200px;">Actions</th>
                     </tr>
                 </thead>
@@ -90,10 +90,10 @@
     </div>
     <div class="card-body">
         <ul class="mb-0">
-            <li><strong>Add Classes:</strong> Enter class names that will participate in rice bowl donations</li>
+            <li><strong>Add Classes:</strong> Enter class names that will participate in Lenten almsgiving</li>
             <li><strong>Edit Classes:</strong> Click "Edit" to rename a class, then "Save" to confirm changes</li>
             <li><strong>Delete Classes:</strong> Remove classes that are no longer participating</li>
-            <li><strong>Rice Bowl Amounts:</strong> Set donation amounts for each class on the <a href="{{ url_for('admin_bp.totals') }}">Totals</a> page</li>
+            <li><strong>Donation Amounts:</strong> Set donation amounts for each class on the <a href="{{ url_for('admin_bp.totals') }}">Totals</a> page</li>
         </ul>
     </div>
 </div>
@@ -110,7 +110,7 @@
             </div>
             <div class="modal-body">
                 <p>Are you sure you want to delete the class <strong id="deleteClassName"></strong>?</p>
-                <p class="text-danger mb-0">This action cannot be undone. All associated rice bowl data will be lost.</p>
+                <p class="text-danger mb-0">This action cannot be undone. All associated donation data will be lost.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
