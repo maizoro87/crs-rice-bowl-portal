@@ -31,7 +31,7 @@
             <ul class="nav-list">
                 <li><a href="#quiz">This Week's Quiz</a></li>
                 <li><a href="#rice-bowl">Rice Bowl Info</a></li>
-                <li><a href="#leaderboard">Class Leaderboard</a></li>
+                <li><a href="#leaderboard">Participating Classes</a></li>
                 <li><a href="#totals">Totals & Updates</a></li>
             </ul>
         </div>
@@ -177,32 +177,24 @@
             </div>
         </section>
 
-        <!-- Section D: Class Leaderboard -->
+        <!-- Section D: Participating Classes -->
         <section id="leaderboard" class="section section-leaderboard">
             <div class="container">
-                <h2>Class Leaderboard</h2>
-                <p class="section-intro">Rice Bowl donations collected by class (updated as collections are received)</p>
+                <h2>Participating Classes</h2>
+                <p class="section-intro">Classes participating in the CRS Lenten program</p>
 
                 <div class="leaderboard-content">
                     <div class="table-responsive">
-                        <table id="leaderboard-table" class="leaderboard-table" aria-label="Class leaderboard rankings">
+                        <table id="leaderboard-table" class="leaderboard-table" aria-label="Participating classes">
                             <thead>
                                 <tr>
-                                    <th scope="col">Rank</th>
-                                    <th scope="col">Class</th>
-                                    <th scope="col">Amount Collected</th>
-                                    <th scope="col">Participation</th>
+                                    <th scope="col" colspan="3">Class</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Dynamic leaderboard rows -->
+                                <!-- Dynamic class rows -->
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="rice-bowl-total-display">
-                        <p class="total-label">Total Rice Bowl Collections</p>
-                        <p id="rice-bowl-total" class="total-amount" data-amount="0">$0.00</p>
                     </div>
                 </div>
             </div>
@@ -218,12 +210,6 @@
                         <h3>Online Almsgiving Total</h3>
                         <p id="online-total-display" class="total-amount-large" data-amount="0">$0.00</p>
                         <p class="total-description">Donations made online through CRS</p>
-                    </div>
-
-                    <div class="total-card">
-                        <h3>Rice Bowl Total</h3>
-                        <p id="rice-bowl-total-display" class="total-amount-large" data-amount="0">$0.00</p>
-                        <p class="total-description">Physical Rice Bowl collections</p>
                     </div>
 
                     <div id="grand-total" class="total-card total-card-grand" style="display: none;" data-visible-after="2026-03-25">

@@ -37,8 +37,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th style="width: 60%;">Class Name</th>
-                        <th>Rice Bowl Amount</th>
+                        <th style="width: 70%;">Class Name</th>
                         <th style="width: 200px;">Actions</th>
                     </tr>
                 </thead>
@@ -49,9 +48,6 @@
                             <span class="class-name-display">{{ class.name }}</span>
                             <input type="text" class="form-control form-control-sm class-name-edit d-none"
                                    value="{{ class.name }}" data-class-id="{{ class.id }}">
-                        </td>
-                        <td>
-                            <span class="badge bg-success">${{ class.rice_bowl_amount if class.rice_bowl_amount else '0.00' }}</span>
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm class-actions">
@@ -90,10 +86,9 @@
     </div>
     <div class="card-body">
         <ul class="mb-0">
-            <li><strong>Add Classes:</strong> Enter class names that will participate in rice bowl donations</li>
+            <li><strong>Add Classes:</strong> Enter class names that will participate in the CRS program</li>
             <li><strong>Edit Classes:</strong> Click "Edit" to rename a class, then "Save" to confirm changes</li>
             <li><strong>Delete Classes:</strong> Remove classes that are no longer participating</li>
-            <li><strong>Rice Bowl Amounts:</strong> Set donation amounts for each class on the <a href="{{ url_for('admin_bp.totals') }}">Totals</a> page</li>
         </ul>
     </div>
 </div>
@@ -110,7 +105,7 @@
             </div>
             <div class="modal-body">
                 <p>Are you sure you want to delete the class <strong id="deleteClassName"></strong>?</p>
-                <p class="text-danger mb-0">This action cannot be undone. All associated rice bowl data will be lost.</p>
+                <p class="text-danger mb-0">This action cannot be undone.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

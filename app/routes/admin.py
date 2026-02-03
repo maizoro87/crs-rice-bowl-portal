@@ -98,8 +98,6 @@ def dashboard():
     # Calculate totals
     online_total = float(Setting.get('online_total', '0') or '0')
     classes = SchoolClass.query.order_by(SchoolClass.name).all()
-    rice_bowl_total = sum(c.rice_bowl_amount for c in classes)
-    grand_total = online_total + rice_bowl_total
 
     # Get active announcements count
     active_announcements = Announcement.query.filter_by(enabled=True).count()
@@ -110,8 +108,7 @@ def dashboard():
         next_quiz=next_quiz,
         quizzes=quizzes,
         online_total=online_total,
-        rice_bowl_total=rice_bowl_total,
-        grand_total=grand_total,
+        grand_total=online_total,
         class_count=len(classes),
         active_announcements=active_announcements,
     )
@@ -199,20 +196,18 @@ def update_quiz(week: int):
 @login_required
 def totals():
     """
-    Show CRS link, online total, and rice bowl totals by class.
+    Show CRS link and online total.
     """
     crs_link = Setting.get('crs_donation_link', '')
     online_total = float(Setting.get('online_total', '0') or '0')
-    classes = SchoolClass.query.order_by(SchoolClass.name).all()
-    rice_bowl_total = sum(c.rice_bowl_amount for c in classes)
+    show_grand_total = Setting.get('show_grand_total', 'true') == 'true'
 
     return render_template(
         'admin/totals.html',
-        crs_link=crs_link,
-        online_total=online_total,
-        classes=classes,
-        rice_bowl_total=rice_bowl_total,
-        grand_total=online_total + rice_bowl_total,
+        crs_donation_link=crs_link,
+        online_alms_total=online_total,
+        grand_total=online_total,
+        show_grand_total=show_grand_total,
     )
 
 
@@ -224,7 +219,8 @@ def update_totals():
     """
     try:
         crs_link = request.form.get('crs_donation_link', '').strip()
-        online_total_str = request.form.get('online_total', '0').strip()
+        online_total_str = request.form.get('online_alms_total', '0').strip()
+        show_grand_total = request.form.get('show_grand_total') == 'true'
 
         # Validate online total
         try:
@@ -237,6 +233,7 @@ def update_totals():
 
         Setting.set('crs_donation_link', crs_link)
         Setting.set('online_total', str(online_total))
+        Setting.set('show_grand_total', 'true' if show_grand_total else 'false')
 
         flash('Totals updated successfully.', 'success')
 
@@ -313,21 +310,12 @@ def add_class():
         return redirect(url_for('admin_bp.classes'))
 
     try:
-        initial_amount_str = request.form.get('rice_bowl_amount', '0').strip()
-        initial_amount = float(initial_amount_str) if initial_amount_str else 0.0
-
-        if initial_amount < 0:
-            flash('Initial amount cannot be negative.', 'error')
-            return redirect(url_for('admin_bp.classes'))
-
-        new_class = SchoolClass(name=name, rice_bowl_amount=initial_amount)
+        new_class = SchoolClass(name=name)
         db.session.add(new_class)
         db.session.commit()
 
         flash(f'Class "{name}" added successfully.', 'success')
 
-    except ValueError:
-        flash('Please enter a valid number for the initial amount.', 'error')
     except Exception as e:
         db.session.rollback()
         flash(f'Error adding class: {str(e)}', 'error')
@@ -349,7 +337,6 @@ def update_class(class_id: int):
 
     try:
         new_name = request.form.get('name', '').strip()
-        amount_str = request.form.get('rice_bowl_amount', '').strip()
 
         if new_name and new_name != school_class.name:
             # Check for duplicate name
@@ -359,18 +346,8 @@ def update_class(class_id: int):
                 return redirect(url_for('admin_bp.classes'))
             school_class.name = new_name
 
-        if amount_str:
-            amount = float(amount_str)
-            if amount < 0:
-                flash('Amount cannot be negative.', 'error')
-                return redirect(url_for('admin_bp.classes'))
-            school_class.rice_bowl_amount = amount
-
         db.session.commit()
         flash(f'Class "{school_class.name}" updated successfully.', 'success')
-
-    except ValueError:
-        flash('Please enter a valid number for the amount.', 'error')
     except Exception as e:
         db.session.rollback()
         flash(f'Error updating class: {str(e)}', 'error')

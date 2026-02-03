@@ -22,11 +22,10 @@ def get_data():
     Returns JSON with:
     - current_week: Current week number based on quiz schedules
     - quizzes: All quizzes with visibility, participants, winners
-    - classes: All school classes with rice bowl amounts
+    - classes: All school classes
     - settings: Application settings
     - announcements: Active announcements
-    - rice_bowl_total: Sum of all class amounts
-    - grand_total: Online alms + rice bowl total
+    - grand_total: Online alms total
     """
     try:
         # Get current week based on visible quizzes
@@ -76,8 +75,7 @@ def get_data():
         class_data = [
             {
                 'id': cls.id,
-                'name': cls.name,
-                'rice_bowl_amount': cls.rice_bowl_amount
+                'name': cls.name
             }
             for cls in classes
         ]
@@ -85,7 +83,7 @@ def get_data():
         # Get settings with defaults
         settings = {
             'crs_donation_link': Setting.get('crs_donation_link', ''),
-            'online_alms_total': Setting.get('online_alms_total', '0.00'),
+            'online_alms_total': Setting.get('online_total', '0.00'),
             'show_grand_total': Setting.get('show_grand_total', 'false'),
             'theme': Setting.get('theme', 'lenten-purple'),
             'school_logo_url': Setting.get('school_logo_url', ''),
@@ -105,14 +103,12 @@ def get_data():
         ]
 
         # Calculate totals
-        rice_bowl_total = sum(cls.rice_bowl_amount for cls in classes)
-
         try:
             online_alms = float(settings['online_alms_total'])
         except (ValueError, TypeError):
             online_alms = 0.0
 
-        grand_total = online_alms + rice_bowl_total
+        grand_total = online_alms
 
         # Build response
         response = {
@@ -121,7 +117,6 @@ def get_data():
             'classes': class_data,
             'settings': settings,
             'announcements': active_announcements,
-            'rice_bowl_total': rice_bowl_total,
             'grand_total': grand_total
         }
 
@@ -150,7 +145,6 @@ def get_data():
                 'enable_crs_imagery': 'true'
             },
             'announcements': [],
-            'rice_bowl_total': 0.0,
             'grand_total': 0.0
         }
 

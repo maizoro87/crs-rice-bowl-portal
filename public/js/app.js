@@ -110,7 +110,6 @@ function populatePage(data) {
   populateLeaderboard(data.classes || []);
 
   // Display totals
-  displayRiceBowlTotal(data.rice_bowl_total);
   displayGrandTotal(data, data.settings?.show_grand_total);
 
   console.log('✅ Page populated successfully');
@@ -460,66 +459,24 @@ function populateLeaderboard(classes) {
     return;
   }
 
-  // Sort by rice_bowl_amount descending
+  // Sort alphabetically by name
   const sortedClasses = [...classes].sort((a, b) =>
-    (parseFloat(b.rice_bowl_amount) || 0) - (parseFloat(a.rice_bowl_amount) || 0)
+    a.name.localeCompare(b.name)
   );
 
-  sortedClasses.forEach((cls, index) => {
-    const rank = index + 1;
-    const amount = parseFloat(cls.rice_bowl_amount) || 0;
-    const formattedAmount = formatCurrency(amount);
-
-    let rankClass = '';
-    let rankDisplay = rank.toString();
-
-    if (rank === 1) {
-      rankClass = 'rank-gold';
-      rankDisplay = '🥇';
-    } else if (rank === 2) {
-      rankClass = 'rank-silver';
-      rankDisplay = '🥈';
-    } else if (rank === 3) {
-      rankClass = 'rank-bronze';
-      rankDisplay = '🥉';
-    }
-
+  sortedClasses.forEach((cls) => {
     const tr = document.createElement('tr');
-    if (rankClass) {
-      tr.className = rankClass;
-    }
-
-    const rankTd = document.createElement('td');
-    rankTd.className = 'rank-cell';
-    rankTd.textContent = rankDisplay;
 
     const nameTd = document.createElement('td');
     nameTd.className = 'class-name';
+    nameTd.colSpan = 3;
     nameTd.textContent = cls.name;
 
-    const amountTd = document.createElement('td');
-    amountTd.className = 'amount-cell';
-    amountTd.textContent = formattedAmount;
-
-    tr.appendChild(rankTd);
     tr.appendChild(nameTd);
-    tr.appendChild(amountTd);
     tbody.appendChild(tr);
   });
 
-  console.log(`📊 Populated leaderboard with ${sortedClasses.length} class(es)`);
-}
-
-/**
- * Display rice bowl total
- */
-function displayRiceBowlTotal(amount) {
-  const element = document.getElementById('rice-bowl-total');
-  if (!element) return;
-
-  const formatted = formatCurrency(parseFloat(amount) || 0);
-  element.textContent = formatted;
-  console.log(`🍚 Rice bowl total: ${formatted}`);
+  console.log(`📊 Populated class list with ${sortedClasses.length} class(es)`);
 }
 
 /**
@@ -542,16 +499,15 @@ function displayGrandTotal(data, showGrandTotal) {
     return;
   }
 
-  // Calculate grand total
-  const riceBowlTotal = parseFloat(data.rice_bowl_total) || 0;
+  // Calculate grand total (online donations only)
   const onlineAlms = parseFloat(data.settings?.online_alms_total) || 0;
-  const grandTotal = riceBowlTotal + onlineAlms;
+  const grandTotal = onlineAlms;
 
   const formatted = formatCurrency(grandTotal);
   element.textContent = formatted;
   container.style.display = 'block';
 
-  console.log(`💎 Grand total: ${formatted} (Rice Bowl: ${formatCurrency(riceBowlTotal)} + Online: ${formatCurrency(onlineAlms)})`);
+  console.log(`💎 Grand total: ${formatted}`);
 }
 
 /**
